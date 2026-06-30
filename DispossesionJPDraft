@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dispossession in the Americas</title>
+    <style>
+        :root {
+            --bg-parchment: #f2ebd9; 
+            --leather-dark: #2a201a; 
+            --ink-black: #1a120c;
+            --ink-faded: #382e25;
+            --seal-wax: #8c2d19; 
+            --gold-leaf: #ebdcb9;
+            --paper-edge: #d3c7b5;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Garamond", "Georgia", serif;
+            background-color: var(--leather-dark);
+            color: var(--ink-black);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        p {
+            line-height: 1.6;
+            margin-bottom: 1.25rem;
+            font-size: 1.1rem;
+            text-align: justify;
+        }
+
+        /* --- LANDING / TITLE PAGE --- */
+        #title-page {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: radial-gradient(circle, #3e3128 0%, #1a130f 100%);
+            text-align: center;
+            padding: 2rem;
+            z-index: 1000;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .book-cover {
+            border: 5px double var(--paper-edge);
+            padding: 4rem;
+            max-width: 800px;
+            background: var(--bg-parchment);
+            box-shadow: 0 0 50px rgba(0,0,0,0.8), inset 0 0 100px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .book-cover h1 {
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+            text-transform: none;
+            border-bottom: 2px solid var(--seal-wax);
+        }
+
+        .book-cover .subtitle {
+            font-style: italic;
+            font-size: 1.4rem;
+            color: var(--ink-faded);
+            margin-bottom: 3rem;
+            text-align: center; /* Centered successfully */
+        }
+
+        .dossier-menu {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .dossier-card {
+            background: #fffdfa;
+            border: 1px solid var(--paper-edge);
+            border-radius: 2px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 3px 3px 8px rgba(0,0,0,0.15);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .dossier-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            background: var(--bg-parchment);
+        }
+
+        .dossier-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--seal-wax);
+        }
+
+        .dossier-card h3 {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* --- INTERNAL CONTENT LAYOUT --- */
+        #main-repository {
+            display: none; /* Hidden by default */
+            min-height: 100vh;
+        }
+
+        .app-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        nav {
+            width: 300px;
+            background-color: var(--leather-dark);
+            color: #dfd5c6;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            padding: 2rem 1.5rem;
+            border-right: 3px double #1a130f;
+            box-shadow: inset -10px 0 20px rgba(0,0,0,0.3);
+        }
+
+        nav .back-btn {
+            display: block;
+            margin-bottom: 2rem;
+            color: var(--gold-leaf);
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            border: 1px solid rgba(235, 220, 185, 0.3);
+            padding: 0.5rem;
+            text-align: center;
+        }
+
+        nav .back-btn:hover { background: rgba(255,255,255,0.05); }
+
+        nav h2 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #8f8073;
+            margin: 1.5rem 0 0.5rem 0;
+        }
+
+        nav ul { list-style: none; }
+        nav ul li a {
+            color: #dfd5c6;
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.95rem;
+            transition: 0.2s;
+        }
+        nav ul li a:hover { color: #fff; background: rgba(255,255,255,0.05); }
+
+        /* Scrollable Area */
+        main {
+            margin-left: 300px;
+            width: calc(100% - 300px);
+            padding: 4rem 5rem;
+            background: radial-gradient(circle at 50% 50%, #f7f2e4 0%, #ede6d0 100%);
+        }
+
+        section { display: none; } /* Sections are toggled by JS */
+        section.active { display: block; }
+
+        header {
+            margin-bottom: 4rem;
+            border-bottom: 4px double var(--seal-wax);
+            padding-bottom: 2rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            text-align: center;
+            font-style: italic;
+            color: var(--ink-faded);
+        }
+
+        .card {
+            background: #fbf8f0;
+            padding: 2.5rem;
+            border: 1px solid #dcd1be;
+            border-radius: 4px;
+            border-bottom: 3px solid #bba481;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 4px 15px rgba(42, 32, 26, 0.05);
+        }
+
+        .card h3 {
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.6rem;
+            font-size: 0.7rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 2px;
+            margin-bottom: 1rem;
+        }
+        .badge.theory { background: #f5eae6; color: var(--seal-wax); }
+        .badge.england { background: #ebf0ec; color: #4a5d4e; }
+        .badge.yucatan { background: #e9eef7; color: #324775; }
+
+        /* Placeholders */
+        .media-placeholder {
+            margin: 2.5rem 0;
+            border: 1px solid #d0c4af;
+            background: #ede7d9;
+            height: 250px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #7a6e5d;
+            font-style: italic;
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .media-placeholder span {
+            display: block;
+            font-family: monospace;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--seal-wax);
+        }
+
+        /* 3D Viewport Placeholder */
+        .model-viewport {
+            background: #1c1815;
+            height: 400px;
+            margin: 2.5rem 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #bcaf9f;
+            border: 2px solid #000;
+        }
+
+        .download-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #ede6d5;
+            border: 1px dashed #ad9e87;
+            padding: 1rem;
+        }
+
+        .download-btn {
+            background: var(--leather-dark);
+            color: #dfd5c6;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        footer {
+            margin-top: 5rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--ink-faded);
+            border-top: 1px solid var(--paper-edge);
+            padding-top: 2rem;
+        }
+
+        @media (max-width: 900px) {
+            .dossier-menu { grid-template-columns: 1fr; }
+            #title-page { height: auto; padding: 4rem 1rem; }
+            .app-container { flex-direction: column; }
+            nav { width: 100%; height: auto; position: relative; }
+            main { margin-left: 0; width: 100%; padding: 2rem 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="title-page">
+        <div class="book-cover">
+            <h1>Dispossession in the Americas</h1>
+            <p class="subtitle">An Analysis of Two Legal Cases from the 1690s</p>
+            
+            <div class="dossier-menu">
+                <div class="dossier-card" onclick="showSection('theory')">
+                    <div class="icon">⟳</div>
+                    <h3>I. Theory</h3>
+                    <p style="font-size: 0.8rem; margin-top: 0.5rem; text-align: center; margin-bottom: 0;">The Recursive Model</p>
+                </div>
+                <div class="dossier-card" onclick="showSection('saffin')">
+                    <div class="icon">📜</div>
+                    <h3>II. Adam Case</h3>
+                    <p style="font-size: 0.8rem; margin-top: 0.5rem; text-align: center; margin-bottom: 0;">New England</p>
+                </div>
+                <div class="dossier-card" onclick="showSection('patricio')">
+                    <div class="icon">🏛️</div>
+                    <h3>III. Juan Patricio Case</h3>
+                    <p style="font-size: 0.8rem; margin-top: 0.5rem; text-align: center; margin-bottom: 0;">Yucatán Peninsula</p>
+                </div>
+            </div>
+            <p style="margin-top: 3rem; font-size: 0.8rem; opacity: 0.6; text-align: center; margin-bottom: 0;">Click a dossier to break the seal and examine the records.</p>
+        </div>
+    </div>
+
+    <div id="main-repository">
+        <div class="app-container">
+            <nav>
+                <div class="back-btn" onclick="goHome()">← Return to Index</div>
+                
+                <div id="nav-theory" class="nav-group">
+                    <h2>Dossier: Theory</h2>
+                    <ul>
+                        <li><a href="#theory-overview">Recursive Theory</a></li>
+                        <li><a href="#theory-3d">Recursive Model (3D)</a></li>
+                    </ul>
+                </div>
+
+                <div id="nav-saffin" class="nav-group">
+                    <h2>Dossier: Adam</h2>
+                    <ul>
+                        <li><a href="#saffin-context">Middle Passage</a></li>
+                        <li><a href="#saffin-details">Indigenous Maps</a></li>
+                        <li><a href="#saffin-downloads">Archive Download</a></li>
+                    </ul>
+                </div>
+
+                <div id="nav-patricio" class="nav-group">
+                    <h2>Dossier: Juan Patricio</h2>
+                    <ul>
+                        <li><a href="#patricio-overview">Overview</a></li>
+                        <li><a href="#patricio-context">Middle Passage</a></li>
+                        <li><a href="#patricio-details">Implications</a></li>
+                        <li><a href="#patricio-downloads">Archive Download</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main>
+                <section id="section-theory">
+                    <header>
+                        <h1>Part I: Dispossession Theory</h1>
+                        <p>Understanding Recurive Dispossession</p>
+                    </header>
+                    <div class="card" id="theory-overview">
+                        <span class="badge theory">Theoretical Premise</span>
+                        <h3>Recursive Dispossession</h3>
+                        <p>The foundationalist presupposition of theories of dispossession operates simultaneously on two levels: on the level of subjectivity, or a subject’s relationship to themself, and on the level of a subject’s relationship to land. In the first instance, subjects are presumed to own themselves, their bodies, or their labor before dispossession, and thus to seek the return of those stolen elements of their selves. In the second instance, land is presumably possessed by individuals or by collectivities, either by right or custom, as property or as commons, such that anti dispossessive politics ought to seek the return of that land to the individuals or collectivities from which it was stolen. However, these presuppositions often do not specify in what sense subjects can be said to have previously owned themselves or their land, and thus fail to consider the political implications of imputing prior possession; as Marx put in the passage on Proudhon: “since ‘theft’ as a forcible violation of property presupposes the existence of property” 12. The “theft” framework however, presumes prior possession--- it obscures the ante-possessive social relations that preceded and opposed dispossession and it restricts redress to juridical disputes over who should be recognized as a proper possessor.</p>
+                    </div>
+                    <div class="media-placeholder">
+                        <span>[assets/images/fig-1-1-atlantic-vectors.png]</span>
+                        Figure 1.1: Map mapping intersecting lines of commodity and labor extraction across 17th-century Atlantic networks.
+                    </div>
+                    <div class="media-placeholder">
+                        <span>[assets/images/fig-1-2-juridical-framework.png]</span>
+                        Figure 1.2: Diagram outlining the contrast between the standard 'Theft Framework' and the 'Ante-Possessive Model.'
+                    </div>
+                    <div class="model-viewport" id="theory-3d">
+                        <h3>Interactive 3D Viewport</h3>
+                        <p style="text-align: center; color: #bcaf9f;">[Placeholder: glTF Recursive Loop Model]</p>
+                    </div>
+                </section>
+
+                <section id="section-saffin">
+                    <header>
+                        <h1>Part II: The Adam Saffin Case</h1>
+                        <p>New England</p>
+                    </header>
+                    <div class="card" id="saffin-context">
+                        <span class="badge england">Transatlantic Slave Trade</span>
+                        <h3>The Middle Passage</h3>
+                        <p>Less than two centuries ago, the idea of shipping humans across the Atlantic was as ordinary as the trade of textiles and coffee. The transatlantic slave trade, which lasted from the 16th to 19th century, saw between 10 and 17 million enslaved Africans forcibly transported across the Atlantic Ocean to the Americas. It is estimated that 15 to 25 percent of those who were transported died aboard slave ships.</p>
+                        <p>One of the most critical points of contact between Europeans and Africans for centuries, the trade saw the shipment of enslaved Africans begin steadily, with a few hundred thousand Africans making the journey prior to the 17th century. As plantations in the Caribbean and Chesapeake areas emerged, however, demand for enslaved labor rose. In the 18th century, nearly three-fifths of the total volume of the trade—millions of human beings—was transported from Africa to the Americas.</p>
+                        <p>The journey, often referred to as the Middle Passage, was a brutal, unsanitary trip. Lasting several weeks to months, Africans were packed tightly in rows below decks, suffering sexual abuse, intolerable heat, low oxygen levels, and rampant disease. In one instance, Captain Luke Collingwood of the slave ship Zong ordered that more than 130 Africans be thrown overboard to prevent the spread of disease. He later filed an insurance claim on the value of those he and his crew murdered.</p>
+                        <p>These atrocities did not begin with trips between the New World and the Old. African traders, engaged in the act of capturing Africans to sell into slavery, often exchanged captives for commodities from Asia: luxury goods, firearms, liquor, cowrie shells, textiles. The transatlantic slave trade was thus not a one-step mechanism. It involved the dispossession of African men, women, and children at multiple levels, from victimization at the hands of African slavers to abuse by Europeans who profited off the trade to degradation by Americans who relied on slave labor to generate their wealth.</p>
+                    </div>
+                    <div class="media-placeholder">
+                        <span>[assets/images/fig-2-1-middle-passage-ledger.png]</span>
+                        Figure 2.1: Knightlab Storymaps depicting Adam's journey.
+                    </div>
+                    <div class="card" id="saffin-details">
+                        <h3>Indigenous Maps</h3>
+                        <p>The Abenaki word “awikhigan” refers to written language that takes the form of birchbark messages, maps, scrolls, books, and letters. While this critical literacy is often invisibilized in modern cartographic practices, the tradition of writing has remained integral in efforts to articulate indigenous territory.</p>
+                        <p>The prefix “awik-” means “to draw, map, or write”; the suffix “-igan” means “tool or instrument.” Today, “awikhigan” extends to digital creations. The digital humanities are not absolved of a responsibility to center indigenous literacy. Despite the limitations of software that draws maps according to colonial traditions and markers, it is nevertheless vital that we refer to these spaces as stolen indigenous land. Just as Adam’s resistance to his dispossession did not always entail a literal repossession of his body, land, and labor, so too can the resistance of indigenous dispossession entail not just the repossession of territory but also the renewal of dialogue with early indigenous writers and the nourishment of existing indigenous literacies.</p>
+                    </div>
+                    <div class="media-placeholder">
+                        <span>[assets/images/fig-2-2-awikhigan-reproduction.png]</span>
+                        Figure 2.2: Knightlab Juxtapose contrasting 1690s New England with Indigenous Maps to Modern Day.
+                    </div>
+                    <div class="media-placeholder">
+                        <span>[assets/images/fig-2-3-saffin-manuscript.png]</span>
+                        Figure 2.3: Image of key page from the archive.
+                    </div>
+                    <div class="card" id="saffin-downloads">
+                        <span class="badge england">Archival Registry</span>
+                        <div class="download-box">
+                            <div><strong>Adam_v_Saffin_Transcript.pdf</strong></div>
+                            <a href="#" class="download-btn">Download PDF</a>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="section-patricio">
+                    <header>
+                        <h1>Part III: The Juan Patricio Case</h1>
+                        <p>Yucatán Peninsula</p>
+                    </header>
+                    <div class="card" id="patricio-overview">
+                        <span class="badge yucatan">An Overview</span>
+                        <h3>Dispossession in the Yucatán Peninsula</h3>
+                        <p>Juan Patricio's story demonstrates a genealogy of how possession and dispossession were and are apprehended and lived, which is to say accounts that unsettle the values we presumptively impute to possession and dispossession, including the values we impute to struggles against dispossession.</p>
+                        <p>In fact, the dispossessed did not always challenge their dispossession by claiming prior possession (of their bodies, their lands, their labor) or by demanding renewed possession as a singular remedy. In many cases, the dispossessed placed a much higher value on shaping and maintaining their social relations both with other dispossessed people and with the dispossessors they daily confront than they do in gaining or regaining possessions like land, land, or even their own bodies.</p>
+                        <p>Thus, highlighting differences among cultures in defining what is "possessed" and the value placed on those "possessions" In 1696, a case in Yucatán was presented: “Certified copy of criminal proceedings brought by Doña Isabel Solis, resident of Yucatán, against Juan Patricio slave, for having beaten Don Ignacio de Esquivel, priest.” In this story, Juan Patricio and Fabiana Pech help us to chart a history of the not-yet-present of our own antidispossessive politics.</p>
+                    </div>
+                    <div class="card" id="patricio-context">
+                        <span class="badge yucatan">Transatlantic Slave Trade</span>
+                        <h3>The Middle Passage</h3>
+                        <p>Less than two centuries ago, the idea of shipping humans across the Atlantic was as ordinary as the trade of textiles and coffee. The transatlantic slave trade, which lasted from the 16th to 19th century, saw between 10 (conservative estimate) and 17 (generous estimate) million enslaved Africans forcibly transported across the Atlantic Ocean to the Americas. It is estimated that 15 to 25 percent of those who were transported died aboard slave ships.</p>
+                        <p>One of the most critical points of contact between Europeans and Africans for centuries, the trade saw the shipment of enslaved Africans begin steadily, with around a few hundred thousand Africans making the journey prior to the 17th century. As plantations in the Caribbean and Chesapeake areas emerged, however, demand for enslaved labor rose. In the 18th century, nearly three-fifths of the total volume of the trade was transported from Africa to the Americas.</p>
+                        <p>The journey, often referred to as the Middle Passage, was a brutal, unsanitary trip. Lasting several weeks to months, Africans were packed tightly in rows below decks, suffering sexual abuse, intolerable heat, low oxygen levels, and rampant disease. At one point, Captain Luke Collingwood of slave ship Zong ordered that more than 130 Africans be thrown overboard to prevent the spread of disease. He later filed an insurance claim on the value of those murdered. </p>
+                        <p>These atrocities did not begin with trips between the Old and New Worlds. African traders, engaged in the act of capturing Africans to sell into slavery, often exchanged captives for commodities from Asia. This trade enabled the sale of human lives in exchange for luxury goods, firearms, liquor, cowrie shells, textiles. </p>
+                        <p>The transatlantic slave trade was not a one-step mechanism. It involved the dispossession of African men, women, and children at multiple levels, from victimization at the hands of African slavers, to abuse by Europeans who profited off the trade, to degradation by Americans who relied on slave labor to generate their wealth.</p>
+                        <p><stong>Juan Patricio in the 1600s would have had his life fundamentally shaped by the Transatlantic Slave Trade.</stong></p>
+                    </div>
+                    <div class="media-placeholder">
+                        <span>[assets/images/fig-3-1-yucatan-storymaps.png]</span>
+                        Figure 3.1: Knightlab Storymaps depicting Juan Patricio's Journey through the Yucatán Peninsula.
+                    </div>
+                    <div class="card" id="patricio-details">
+                        <h3>Implications</h3>
+                        <p>Throughout the duration of the conflict, Juan Patricio shows himself to be much less interested in gaining or regaining any possessions he putatively lost, than he is in actively shaping the social relations he has with Black and Indigenous people, as well as both Creoles and Spaniards.</p>
+                        <p>Juan Patricio's challenge to dispossession is thus ante-possessive, in that it is at once before, against, and opposite possession itself. Before possession, because he acts in a world that has not yet been entirely subsumed under racial capital's form of value; against possession, because he opposed Esquivel's attempt to possess the likes of Fabianna Pech and himself; and opposite possession, because he asserts his active role in social relations among Afro-Yucatecans, Maya, and Creoles alongside the dispossessor's ongoing power of accumulation.</p>
+                        <p>More than half a decade later, Juan Patricio's case demonstrates that racial capitalism continues to be an ongoing process of accumulation by dispossession in the Americas.</p>
+                        <p>For instance, public discourse about migration to the US continues to describe a system of accumulation by dispossession in individualistic terms. Individuals from Central America and Mexico are presumed to migrate, first, because they lost possession over something they previously owned—such as their labor, their land, their autonomy, their safety—and second, because they want to regain the possessions they lost. This no doubt can be said to be true for some people, yet, at least some migrants seem to have migrated for other reasons and seem to want something entirely different from such possessions.</p>
+                        <p>Migration itself, including the often maligned “caravans” of migrants moving from Central America to the US, can be understood as a kind of improvised community, an effort to configure new social relations in the face of threats to or the veritable, the destruction of prior social relations.</p>
+                        <p>Learning how contemporary migrants come to the US in the interest of and with the desire to protect, restore, or forge new social relations that have been stressed or even destroyed by the relentless logics of dispossession, and then are required to narrate those interests and desires as lost individual possessions, can teach us how to approach dispossession for traces of ante-possession. From seventeenth-century villages like Tahmek to twenty-first-century detention centers in El Paso, varied, vigorous challenges to accumulation by dispossession thrive, refusing possession itself in the name of lives otherwise lived.</p>
+                    </div>
+                    <div class="media-placeholder">
+                        <span>[assets/images/fig-3-2-Juan-Patricio-Archive.png]</span>
+                        Figure 3.2: Key page from the Juan Patricio Archive.
+                    </div>
+                    <div class="media-placeholder">
+                      <img src="https://drive.google.com/file/d/1EerVQNCx4_XL7-XvtIoh6Fy36lgzNglm/view?usp=sharing" alt="Juxtapose contrasting 1710s Yucatán with Modern Day." >
+                        Figure 3.3: Juxtapose contrasting 1710s Yucatán with Modern Day.
+                    </div>
+                    <div class="card" id="patricio-downloads">
+                        <span class="badge yucatan">Archival Registry</span>
+                        <div class="download-box">
+                            <div><strong>Patricio_Trial_1690_Trans.pdf</strong></div>
+                            <a href="#" class="download-btn">Download PDF</a>
+                        </div>
+                    </div>
+                </section>
+
+                <footer>
+                    <p style="text-align: center;">Works Cited:</p>
+                </footer>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide Landing Page
+            document.getElementById('title-page').style.display = 'none';
+            // Show Repository
+            document.getElementById('main-repository').style.display = 'block';
+            
+            // Hide all nav groups and sections
+            const navs = document.querySelectorAll('.nav-group');
+            const sections = document.querySelectorAll('section');
+            navs.forEach(n => n.style.display = 'none');
+            sections.forEach(s => s.classList.remove('active'));
+
+            // Show selected nav group and section
+            document.getElementById('nav-' + sectionId).style.display = 'block';
+            document.getElementById('section-' + sectionId).classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo(0,0);
+        }
+
+        function goHome() {
+            document.getElementById('title-page').style.display = 'flex';
+            document.getElementById('main-repository').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
