@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dispossession in the Americas</title>
+    <style>
+        :root {
+            --bg-parchment: #f2ebd9; 
+            --leather-dark: #2a201a; 
+            --ink-black: #1a120c;
+            --ink-faded: #382e25;
+            --seal-wax: #8c2d19; 
+            --gold-leaf: #ebdcb9;
+            --paper-edge: #d3c7b5;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Garamond", "Georgia", serif;
+            background-color: var(--leather-dark);
+            color: var(--ink-black);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        p {
+            line-height: 1.6;
+            margin-bottom: 1.25rem;
+            font-size: 1.1rem;
+            text-align: justify;
+        }
+
+        /* --- LANDING / TITLE PAGE --- */
+        #title-page {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: radial-gradient(circle, #3e3128 0%, #1a130f 100%);
+            text-align: center;
+            padding: 2rem;
+            z-index: 1000;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .book-cover {
+            border: 5px double var(--paper-edge);
+            padding: 4rem;
+            max-width: 800px;
+            background: var(--bg-parchment);
+            box-shadow: 0 0 50px rgba(0,0,0,0.8), inset 0 0 100px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .book-cover h1 {
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+            text-transform: none;
+            border-bottom: 2px solid var(--seal-wax);
+        }
+
+        .book-cover .subtitle {
+            font-style: italic;
+            font-size: 1.4rem;
+            color: var(--ink-faded);
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .dossier-menu {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .dossier-card {
+            background: #fffdfa;
+            border: 1px solid var(--paper-edge);
+            border-radius: 2px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 3px 3px 8px rgba(0,0,0,0.15);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .dossier-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            background: var(--bg-parchment);
+        }
+
+        .dossier-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--seal-wax);
+        }
+
+        .dossier-card h3 {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* --- INTERNAL CONTENT LAYOUT --- */
+        #main-repository {
+            display: none; 
+            min-height: 100vh;
+        }
+
+        .app-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        nav {
+            width: 300px;
+            background-color: var(--leather-dark);
+            color: #dfd5c6;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            padding: 2rem 1.5rem;
+            border-right: 3px double #1a130f;
+            box-shadow: inset -10px 0 20px rgba(0,0,0,0.3);
+        }
+
+        nav .back-btn {
+            display: block;
+            margin-bottom: 2rem;
+            color: var(--gold-leaf);
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            border: 1px solid rgba(235, 220, 185, 0.3);
+            padding: 0.5rem;
+            text-align: center;
+        }
+
+        nav .back-btn:hover { background: rgba(255,255,255,0.05); }
+
+        nav h2 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #8f8073;
+            margin: 1.5rem 0 0.5rem 0;
+        }
+
+        nav ul { list-style: none; }
+        nav ul li a {
+            color: #dfd5c6;
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.95rem;
+            transition: 0.2s;
+        }
+        nav ul li a:hover { color: #fff; background: rgba(255,255,255,0.05); }
+
+        main {
+            margin-left: 300px;
+            width: calc(100% - 300px);
+            padding: 4rem 5rem;
+            background: radial-gradient(circle at 50% 50%, #f7f2e4 0%, #ede6d0 100%);
+        }
+
+        section { display: none; } 
+        section.active { display: block; }
+
+        header {
+            margin-bottom: 4rem;
+            border-bottom: 4px double var(--seal-wax);
+            padding-bottom: 2rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            text-align: center;
+            font-style: italic;
+            color: var(--ink-faded);
+        }
+
+        .card {
+            background: #fbf8f0;
+            padding: 2.5rem;
+            border: 1px solid #dcd1be;
+            border-radius: 4px;
+            border-bottom: 3px solid #bba481;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 4px 15px rgba(42, 32, 26, 0.05);
+        }
+
+        .card h3 {
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.6rem;
+            font-size: 0.7rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 2px;
+            margin-bottom: 1rem;
+        }
+        .badge.theory { background: #f5eae6; color: var(--seal-wax); }
+        .badge.england { background: #ebf0ec; color: #4a5d4e; }
+        .badge.yucatan { background: #e9eef7; color: #324775; }
+
+        .media-placeholder {
+            margin: 2.5rem 0;
+            border: 1px solid #d0c4af;
+            background: #ede7d9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #7a6e5d;
+            font-style: italic;
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .media-placeholder span {
+            display: block;
+            font-family: monospace;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--seal-wax);
+        }
+
+        .archive-image {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto 1rem auto;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            border: 1px solid #bba481;
+        }
+
+        .model-viewport {
+            background: #1c1815;
+            height: 400px;
+            margin: 2.5rem 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #bcaf9f;
+            border: 2px solid #000;
+        }
+
+        .download-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #ede6d5;
+            border: 1px dashed #ad9e87;
+            padding: 1rem;
+        }
+
+        .download-btn {
+            background: var(--leather-dark);
+            color: #dfd5c6;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        footer {
+            margin-top: 5rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--ink-faded);
+            border-top: 1px solid var(--paper-edge);
+            padding-top: 2rem;
+        }
+
+        @media (max-width: 900px) {
+            .dossier-menu { grid-template-columns: 1fr; }
+            #title-page { height: auto; padding: 4rem 1rem; }
+            .app-container { flex-direction: column; }
+            nav { width: 100%; height: auto; position: relative; }
+            main { margin-left: 0; width: 100%; padding: 2rem 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="title-page">
+        <div class="book-cover">
+            <h1>Dispossession in the Americas</h1>
+            <p class="subtitle">An Analysis of Two Legal Cases from the 1690s</p>
+            
+            <div class="dossier-menu">
+                <div class="dossier-card" onclick="showSection('theory')">
+                    <div class="icon">⟳</div>
+                    <h3>I. Theory</h3>
+                    <p style="font-size: 0.8rem; margin-top: 0.5rem; text-align: center; margin-bottom: 0;">The Recursive Model</p>
+                </div>
+                <div class="dossier-card" onclick="showSection('saffin')">
+                    <div class="icon">📜</div>
+                    <h3>II. Adam Case</h3>
+                    <p style="font-size: 0.8rem; margin-top: 0.5rem; text-align: center; margin-bottom: 0;">New England</p>
+                </div>
+                <div class="dossier-card" onclick="showSection('patricio')">
+                    <div class="icon">
+                        <img src="https://lh3.googleusercontent.com/d/1uPAP3c4PSSFtdd9dBsBwRhN0pvpe9NHG" alt="Juan Patricio Primary Source Image" height="50px">
+                    </div>
+                    <h3>III. Juan Patricio Case</h3>
+                    <p style="font-size: 0.8rem; margin-top: 0.5rem; text-align: center; margin-bottom: 0;">Yucatán Peninsula</p>
+                </div>
+            </div>
+            <p style="margin-top: 3rem; font-size: 0.8rem; opacity: 0.6; text-align: center; margin-bottom: 0;">Click a dossier to break the seal and examine the records.</p>
+        </div>
+    </div>
+
+    <div id="main-repository">
+        <div class="app-container">
+            <nav>
+                <div class="back-btn" onclick="goHome()">← Return to Index</div>
+                
+                <div id="nav-theory" class="nav-group">
+                    <h2>Dossier: Theory</h2>
+                    <ul>
+                        <li><a href="#theory-overview">Recursive Theory</a></li>
+                        <li><a href="#theory-3d">Recursive Model (3D)</a></li>
+                    </ul>
+                </div>
+
+                <div id="nav-saffin" class="nav-group">
+                    <h2>Dossier: Adam</h2>
+                    <ul>
+                        <li><a href="#saffin-overview">Overview</a></li>
+                        <li><a href="#saffin-context">Middle Passage</a></li>
+                        <li><a href="#saffin-details">Indigenous Maps</a></li>
+                        <li><a href="#saffin-implications">Implications</a></li>
+                        <li><a href="#saffin-downloads">Archive Download</a></li>
+                    </ul>
+                </div>
+
+                <div id="nav-patricio" class="nav-group">
+                    <h2>Dossier: Juan Patricio</h2>
+                    <ul>
+                        <li><a href="#patricio-overview">Overview</a></li>
+                        <li><a href="#patricio-context">Middle Passage</a></li>
+                        <li><a href="#patricio-details">Implications</a></li>
+                        <li><a href="#patricio-downloads">Archive Download</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main>
+                <section id="section-theory">
+                    <header>
+                        <h1>Part I: Dispossession Theory</h1>
+                        <p>Understanding Recursive Dispossession</p>
+                    </header>
+                    <div class="card" id="theory-overview">
+                        <span class="badge theory">Theoretical Premise</span>
+                        <h3>Recursive Dispossession</h3>
+                        <p>The foundationalist presupposition of theories of dispossession operates simultaneously on two levels... [Text truncated for code space]</p>
+                    </div>
+                    <div class="media-placeholder">
+                        <span>[assets/images/fig-1-1-atlantic-vectors.png]</span>
+                        Figure 1.1: Map mapping intersecting lines of commodity and labor extraction across 17th-century Atlantic networks.
+                    </div>
+                    <div class="media-placeholder">
+                        <span>[assets/images/fig-1-2-juridical-framework.png]</span>
+                        Figure 1.2: Diagram outlining the contrast between the standard 'Theft Framework' and the 'Ante-Possessive Model.'
+                    </div>
+                    <div class="model-viewport" id="theory-3d">
+                        <h3>Interactive 3D Viewport</h3>
+                        <p style="text-align: center; color: #bcaf9f;">[Placeholder: glTF Recursive Loop Model]</p>
+                    </div>
+                </section>
+
+                <section id="section-saffin">
+                    <header>
+                        <h1>Part II: The Adam Saffin Case</h1>
+                        <p>New England</p>
+                    </header>
+                    <div class="card" id="saffin-overview">
+                        <span class="badge england">An Overview</span>
+                        <h3>Dispossession in colonial New England</h3>
+                        <p>The legal struggles of Adam, an enslaved man in late seventeenth-century Massachusetts, highlight an intricate genealogy...</p>
+                    </div>
+                    <div class="card" id="saffin-context">
+                        <span class="badge england">Transatlantic Slave Trade</span>
+                        <h3>The Middle Passage</h3>
+                        <p>Less than two centuries ago, the idea of shipping humans across the Atlantic was as ordinary as the trade of textiles...</p>
+                    </div>
+                    <div class="media-placeholder">
+                        <span>[assets/images/fig-2-1-middle-passage-ledger.png]</span>
+                        Figure 2.1: Knightlab Storymaps depicting Adam's journey.
+                    </div>
+                    <div class="card" id="saffin-details">
+                        <h3>Indigenous Maps</h3>
+                        <p>The Abenaki word “awikhigan” refers to written language that takes the form of birchbark messages...</p>
+                    </div>
+                    <div class="media-placeholder">
+                        <span>[assets/images/fig-2-2-awikhigan-reproduction.png]</span>
+                        Figure 2.2: Knightlab Juxtapose contrasting 1690s New England with Indigenous Maps to Modern Day.
+                    </div>
+                    <div class="card" id="saffin-implications">
+                        <h3>Implications</h3>
+                        <p>Throughout his extensive legal battle against John Saffin, Adam demonstrated that his resistance was fundamentally driven...</p>
+                    </div>
+                    
+                    <div class="media-placeholder" id="saffin-manuscript">
+                        <img src="AdamArchive.jpg">
+                        <p style="font-size: 0.9rem; text-align: center; margin: 0; font-style: italic; color: var(--ink-faded);">
+                            Figure 2.3: Image of key page from the archive.
+                        </p>
+                    </div>
+
+                    <div class="card" id="saffin-downloads">
+                        <span class="badge england">Archival Registry</span>
+                        <div class="download-box">
+                            <div><strong>Adam_v_Saffin_Transcript.pdf</strong></div>
+                            <a href="#" class="download-btn">Download PDF</a>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="section-patricio">
+                    <header>
+                        <h1>Part III: The Juan Patricio Case</h1>
+                        <p>Yucatán Peninsula</p>
+                    </header>
+                    <div class="card" id="patricio-overview">
+                        <span class="badge yucatan">An Overview</span>
+                        <h3>Dispossession in the Yucatán Peninsula</h3>
+                        <p>Juan Patricio's story demonstrates a genealogy of how possession and dispossession were and are apprehended...</p>
+                    </div>
+                    <div class="card" id="patricio-context">
+                        <span class="badge yucatan">Transatlantic Slave Trade</span>
+                        <h3>The Middle Passage</h3>
+                        <p>Less than two centuries ago, the idea of shipping humans across the Atlantic was as ordinary...</p>
+                    </div>
+                    <div class="media-placeholder">
+                        <span>[assets/images/fig-3-1-yucatan-storymaps.png]</span>
+                        Figure 3.1: Knightlab Storymaps depicting Juan Patricio's Journey through the Yucatán Peninsula.
+                    </div>
+                    <div class="card" id="patricio-details">
+                        <h3>Implications</h3>
+                        <p>Throughout the duration of the conflict, Juan Patricio shows himself to be much less interested in gaining...</p>
+                    </div>
+                    <div class="media-placeholder">
+                        <span>[assets/images/fig-3-2-Juan-Patricio-Archive.png]</span>
+                        Figure 3.2: Key page from the Juan Patricio Archive.
+                    </div>
+                    <div class="media-placeholder">
+                        <img src="https://lh3.googleusercontent.com/d/1EerVQNCx4_XL7-XvtIoh6Fy36lgzNglm" alt="Figure 3.3: Juxtapose contrasting 1710s Yucatán with Modern Day." height="200px" width="625px">
+                        Figure 3.3: Juxtapose contrasting 1710s Yucatán with Modern Day.
+                    </div>
+                    <div class="card" id="patricio-downloads">
+                        <span class="badge yucatan">Archival Registry</span>
+                        <div class="download-box">
+                            <div><strong>Patricio_Trial_1690_Trans.pdf</strong></div>
+                            <a href="#" class="download-btn">Download PDF</a>
+                        </div>
+                    </div>
+                </section>
+
+                <footer>
+                    <p style="text-align: center;">Works Cited:</p>
+                </footer>
+            </main>
+        </div>
+    </div>
+    <script>
+        function showSection(sectionId) {
+            document.getElementById('title-page').style.display = 'none';
+            document.getElementById('main-repository').style.display = 'block';
+            
+            const navs = document.querySelectorAll('.nav-group');
+            const sections = document.querySelectorAll('section');
+            navs.forEach(n => n.style.display = 'none');
+            sections.forEach(s => s.classList.remove('active'));
+
+            document.getElementById('nav-' + sectionId).style.display = 'block';
+            document.getElementById('section-' + sectionId).classList.add('active');
+            
+            window.scrollTo(0,0);
+        }
+
+        function goHome() {
+            document.getElementById('title-page').style.display = 'flex';
+            document.getElementById('main-repository').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
