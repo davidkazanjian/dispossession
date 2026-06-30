@@ -71,7 +71,7 @@
             font-size: 1.4rem;
             color: var(--ink-faded);
             margin-bottom: 3rem;
-            text-align: center;
+            text-align: center; /* Centered successfully */
         }
 
         .dossier-menu {
@@ -113,7 +113,7 @@
 
         /* --- INTERNAL CONTENT LAYOUT --- */
         #main-repository {
-            display: none; 
+            display: none; /* Hidden by default */
             min-height: 100vh;
         }
 
@@ -169,6 +169,7 @@
         }
         nav ul li a:hover { color: #fff; background: rgba(255,255,255,0.05); }
 
+        /* Scrollable Area */
         main {
             margin-left: 300px;
             width: calc(100% - 300px);
@@ -176,7 +177,7 @@
             background: radial-gradient(circle at 50% 50%, #f7f2e4 0%, #ede6d0 100%);
         }
 
-        section { display: none; } 
+        section { display: none; } /* Sections are toggled by JS */
         section.active { display: block; }
 
         header {
@@ -225,10 +226,12 @@
         .badge.england { background: #ebf0ec; color: #4a5d4e; }
         .badge.yucatan { background: #e9eef7; color: #324775; }
 
+        /* Placeholders */
         .media-placeholder {
             margin: 2.5rem 0;
             border: 1px solid #d0c4af;
             background: #ede7d9;
+            height: 250px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -236,7 +239,7 @@
             color: #7a6e5d;
             font-style: italic;
             text-align: center;
-            padding: 1.5rem;
+            padding: 1rem;
             font-size: 0.95rem;
         }
 
@@ -248,15 +251,7 @@
             color: var(--seal-wax);
         }
 
-        .archive-image {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            margin: 0 auto 1rem auto;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-            border: 1px solid #bba481;
-        }
-
+        /* 3D Viewport Placeholder */
         .model-viewport {
             background: #1c1815;
             height: 400px;
@@ -325,7 +320,9 @@
                 </div>
                 <div class="dossier-card" onclick="showSection('patricio')">
                     <div class="icon">
-                        <img src="https://lh3.googleusercontent.com/d/1uPAP3c4PSSFtdd9dBsBwRhN0pvpe9NHG" alt="Juan Patricio Primary Source Image" height="50px">
+                        <img src="https://lh3.googleusercontent.com/d/1uPAP3c4PSSFtdd9dBsBwRhN0pvpe9NHG"
+                      alt="Juan Patricio Primary Source Image"
+                      height= 50px >
                     </div>
                     <h3>III. Juan Patricio Case</h3>
                     <p style="font-size: 0.8rem; margin-top: 0.5rem; text-align: center; margin-bottom: 0;">Yucatán Peninsula</p>
@@ -379,7 +376,7 @@
                     <div class="card" id="theory-overview">
                         <span class="badge theory">Theoretical Premise</span>
                         <h3>Recursive Dispossession</h3>
-                        <p>The foundationalist presupposition of theories of dispossession operates simultaneously on two levels... [Text truncated for code space]</p>
+                        <p>The foundationalist presupposition of theories of dispossession operates simultaneously on two levels: on the level of subjectivity, or a subject’s relationship to themself, and on the level of a subject’s relationship to land. In the first instance, subjects are presumed to own themselves, their bodies, or their labor before dispossession, and thus to seek the return of those stolen elements of their selves. In the second instance, land is presumably possessed by individuals or by collectivities, either by right or custom, as property or as commons, such that anti dispossessive politics ought to seek the return of that land to the individuals or collectivities from which it was stolen. However, these presuppositions often do not specify in what sense subjects can be said to have previously owned themselves or their land, and thus fail to consider the political implications of imputing prior possession; as Marx put in the passage on Proudhon: “since ‘theft’ as a forcible violation of property presupposes the existence of property” 12. The “theft” framework however, presumes prior possession--- it obscures the ante-possessive social relations that preceded and opposed dispossession and it restricts redress to juridical disputes over who should be recognized as a proper possessor.</p>
                     </div>
                     <div class="media-placeholder">
                         <span>[assets/images/fig-1-1-atlantic-vectors.png]</span>
@@ -403,12 +400,17 @@
                     <div class="card" id="saffin-overview">
                         <span class="badge england">An Overview</span>
                         <h3>Dispossession in colonial New England</h3>
-                        <p>The legal struggles of Adam, an enslaved man in late seventeenth-century Massachusetts, highlight an intricate genealogy...</p>
+                        <p>The legal struggles of Adam, an enslaved man in late seventeenth-century Massachusetts, highlight an intricate genealogy of how possession, bondage, and freedom were negotiated under the evolving rules of colonial law. His experiences offer a direct critique of the static framework of 'prior possession,' exposing instead a dynamic arena where enslaved individuals utilized institutional frameworks to reconfigure their localized social relationships.</p>
+                        <p>Rather than merely relying on abstract claims to self-ownership, Adam challenged his subjugation by navigating existing contractual arrangements, municipal agreements, and regional networks of community support. His case demonstrates how the dispossessed worked within and against colonial structures to contest arbitrary bounds of ownership, reshaping their ongoing operational status relative to their masters and peers alike.</p>
+                        <p>In 1701, the structural parameters of this tension came to a head in the Massachusetts courts through the litigation surrounding *Adam v. John Saffin*. The legal proceedings focused heavily on the enforcement of a conditional manumission agreement, revealing how colonial spaces tried to quantify human liberty as property. By examining Adam's proactive navigation of the judicial apparatus, we find a rich historical lineage of anti-dispossessive politics operating right from within the heart of early New England.</p>
                     </div>
                     <div class="card" id="saffin-context">
                         <span class="badge england">Transatlantic Slave Trade</span>
                         <h3>The Middle Passage</h3>
-                        <p>Less than two centuries ago, the idea of shipping humans across the Atlantic was as ordinary as the trade of textiles...</p>
+                        <p>Less than two centuries ago, the idea of shipping humans across the Atlantic was as ordinary as the trade of textiles and coffee. The transatlantic slave trade, which lasted from the 16th to 19th century, saw between 10 and 17 million enslaved Africans forcibly transported across the Atlantic Ocean to the Americas. It is estimated that 15 to 25 percent of those who were transported died aboard slave ships.</p>
+                        <p>One of the most critical points of contact between Europeans and Africans for centuries, the trade saw the shipment of enslaved Africans begin steadily, with a few hundred thousand Africans making the journey prior to the 17th century. As plantations in the Caribbean and Chesapeake areas emerged, however, demand for enslaved labor rose. In the 18th century, nearly three-fifths of the total volume of the trade—millions of human beings—was transported from Africa to the Americas.</p>
+                        <p>The journey, often referred to as the Middle Passage, was a brutal, unsanitary trip. Lasting several weeks to months, Africans were packed tightly in rows below decks, suffering sexual abuse, intolerable heat, low oxygen levels, and rampant disease. In one instance, Captain Luke Collingwood of the slave ship Zong ordered that more than 130 Africans be thrown overboard to prevent the spread of disease. He later filed an insurance claim on the value of those he and his crew murdered.</p>
+                        <p>These atrocities did not begin with trips between the New World and the Old. African traders, engaged in the act of capturing Africans to sell into slavery, often exchanged captives for commodities from Asia: luxury goods, firearms, liquor, cowrie shells, textiles. The transatlantic slave trade was thus not a one-step mechanism. It involved the dispossession of African men, women, and children at multiple levels, from victimization at the hands of African slavers to abuse by Europeans who profited off the trade to degradation by Americans who relied on slave labor to generate their wealth.</p>
                     </div>
                     <div class="media-placeholder">
                         <span>[assets/images/fig-2-1-middle-passage-ledger.png]</span>
@@ -416,7 +418,8 @@
                     </div>
                     <div class="card" id="saffin-details">
                         <h3>Indigenous Maps</h3>
-                        <p>The Abenaki word “awikhigan” refers to written language that takes the form of birchbark messages...</p>
+                        <p>The Abenaki word “awikhigan” refers to written language that takes the form of birchbark messages, maps, scrolls, books, and letters. While this critical literacy is often invisibilized in modern cartographic practices, the tradition of writing has remained integral in efforts to articulate indigenous territory.</p>
+                        <p>The prefix “awik-” means “to draw, map, or write”; the suffix “-igan” means “tool or instrument.” Today, “awikhigan” extends to digital creations. The digital humanities are not absolved of a responsibility to center indigenous literacy. Despite the limitations of software that draws maps according to colonial traditions and markers, it is nevertheless vital that we refer to these spaces as stolen indigenous land. Just as Adam’s resistance to his dispossession did not always entail a literal repossession of his body, land, and labor, so too can the resistance of indigenous dispossession entail not just the repossession of territory but also the renewal of dialogue with early indigenous writers and the nourishment of existing indigenous literacies.</p>
                     </div>
                     <div class="media-placeholder">
                         <span>[assets/images/fig-2-2-awikhigan-reproduction.png]</span>
@@ -424,16 +427,15 @@
                     </div>
                     <div class="card" id="saffin-implications">
                         <h3>Implications</h3>
-                        <p>Throughout his extensive legal battle against John Saffin, Adam demonstrated that his resistance was fundamentally driven...</p>
+                        <p>Throughout his extensive legal battle against John Saffin, Adam demonstrated that his resistance was fundamentally driven by an effort to enforce, preserve, and reshape his social and legal standing within colonial society, rather than merely engaging in a simple transaction for the abstract ideal of property ownership.</p>
+                        <p>Adam's legal maneuvering functions as an ante-possessive challenge because it destabilizes the dynamic of accumulation itself. His defense relied on proving that the terms of his bondage had been legally dissolved by an explicit covenant—a structural claim that repositioned his body entirely outside of Saffin's right of capital accumulation. By utilizing the colony’s own legal codes against his enslaver, Adam forced the courts to acknowledge the limits of racialized property rights within the institutional frameworks of New England.</p>
+                        <p>Centuries later, the structural components highlighted by Adam's suit continue to expose how systems of accumulation operate by dispossessing individuals under modern juridical frameworks. For instance, contemporary contract labor systems and corporate property disputes frequently demand that human protections be parsed out strictly in terms of individualized losses, obscuring broader communal and social relations.</p>
+                        <p>By shifting our perspective to view these historical records through an ante-possessive lens, we uncover how localized communities and marginalized figures continue to construct tactical networks of mutual aid and legal pushback inside hostile territory, asserting their autonomy through systemic frameworks without surrendering to them.</p>
                     </div>
-                    
-                    <div class="media-placeholder" id="saffin-manuscript">
-                        <img src="AdamArchive.jpg">
-                        <p style="font-size: 0.9rem; text-align: center; margin: 0; font-style: italic; color: var(--ink-faded);">
-                            Figure 2.3: Image of key page from the archive.
-                        </p>
+                    <div class="media-placeholder">
+                        <span>[assets/images/fig-2-3-saffin-manuscript.png]</span>
+                        Figure 2.3: Image of key page from the archive.
                     </div>
-
                     <div class="card" id="saffin-downloads">
                         <span class="badge england">Archival Registry</span>
                         <div class="download-box">
@@ -451,12 +453,19 @@
                     <div class="card" id="patricio-overview">
                         <span class="badge yucatan">An Overview</span>
                         <h3>Dispossession in the Yucatán Peninsula</h3>
-                        <p>Juan Patricio's story demonstrates a genealogy of how possession and dispossession were and are apprehended...</p>
+                        <p>Juan Patricio's story demonstrates a genealogy of how possession and dispossession were and are apprehended and lived, which is to say accounts that unsettle the values we presumptively impute to possession and dispossession, including the values we impute to struggles against dispossession.</p>
+                        <p>In fact, the dispossessed did not always challenge their dispossession by claiming prior possession (of their bodies, their lands, their labor) or by demanding renewed possession as a singular remedy. In many cases, the dispossessed placed a much higher value on shaping and maintaining their social relations both with other dispossessed people and with the dispossessors they daily confront than they do in gaining or regaining possessions like land, land, or even their own bodies.</p>
+                        <p>Thus, highlighting differences among cultures in defining what is "possessed" and the value placed on those "possessions" In 1696, a case in Yucatán was presented: “Certified copy of criminal proceedings brought by Doña Isabel Solis, resident of Yucatán, against Juan Patricio slave, for having beaten Don Ignacio de Esquivel, priest.” In this story, Juan Patricio and Fabiana Pech help us to chart a history of the not-yet-present of our own antidispossessive politics.</p>
                     </div>
                     <div class="card" id="patricio-context">
                         <span class="badge yucatan">Transatlantic Slave Trade</span>
                         <h3>The Middle Passage</h3>
-                        <p>Less than two centuries ago, the idea of shipping humans across the Atlantic was as ordinary...</p>
+                        <p>Less than two centuries ago, the idea of shipping humans across the Atlantic was as ordinary as the trade of textiles and coffee. The transatlantic slave trade, which lasted from the 16th to 19th century, saw between 10 (conservative estimate) and 17 (generous estimate) million enslaved Africans forcibly transported across the Atlantic Ocean to the Americas. It is estimated that 15 to 25 percent of those who were transported died aboard slave ships.</p>
+                        <p>One of the most critical points of contact between Europeans and Africans for centuries, the trade saw the shipment of enslaved Africans begin steadily, with around a few hundred thousand Africans making the journey prior to the 17th century. As plantations in the Caribbean and Chesapeake areas emerged, however, demand for enslaved labor rose. In the 18th century, nearly three-fifths of the total volume of the trade was transported from Africa to the Americas.</p>
+                        <p>The journey, often referred to as the Middle Passage, was a brutal, unsanitary trip. Lasting several weeks to months, Africans were packed tightly in rows below decks, suffering sexual abuse, intolerable heat, low oxygen levels, and rampant disease. At one point, Captain Luke Collingwood of slave ship Zong ordered that more than 130 Africans be thrown overboard to prevent the spread of disease. He later filed an insurance claim on the value of those murdered. </p>
+                        <p>These atrocities did not begin with trips between the Old and New Worlds. African traders, engaged in the act of capturing Africans to sell into slavery, often exchanged captives for commodities from Asia. This trade enabled the sale of human lives in exchange for luxury goods, firearms, liquor, cowrie shells, textiles. </p>
+                        <p>The transatlantic slave trade was not a one-step mechanism. It involved the dispossession of African men, women, and children at multiple levels, from victimization at the hands of African slavers, to abuse by Europeans who profited off the trade, to degradation by Americans who relied on slave labor to generate their wealth.</p>
+                        <p><stong>Juan Patricio in the 1600s would have had his life fundamentally shaped by the Transatlantic Slave Trade.</stong></p>
                     </div>
                     <div class="media-placeholder">
                         <span>[assets/images/fig-3-1-yucatan-storymaps.png]</span>
@@ -464,14 +473,22 @@
                     </div>
                     <div class="card" id="patricio-details">
                         <h3>Implications</h3>
-                        <p>Throughout the duration of the conflict, Juan Patricio shows himself to be much less interested in gaining...</p>
+                        <p>Throughout the duration of the conflict, Juan Patricio shows himself to be much less interested in gaining or regaining any possessions he putatively lost, than he is in actively shaping the social relations he has with Black and Indigenous people, as well as both Creoles and Spaniards.</p>
+                        <p>Juan Patricio's challenge to dispossession is thus ante-possessive, in that it is at once before, against, and opposite possession itself. Before possession, because he acts in a world that has not yet been entirely subsumed under racial capital's form of value; against possession, because he opposed Esquivel's attempt to possess the likes of Fabianna Pech and himself; and opposite possession, because he asserts his active role in social relations among Afro-Yucatecans, Maya, and Creoles alongside the dispossessor's ongoing power of accumulation.</p>
+                        <p>More than half a decade later, Juan Patricio's case demonstrates that racial capitalism continues to be an ongoing process of accumulation by dispossession in the Americas.</p>
+                        <p>For instance, public discourse about migration to the US continues to describe a system of accumulation by dispossession in individualistic terms. Individuals from Central America and Mexico are presumed to migrate, first, because they lost possession over something they previously owned—such as their labor, their land, their autonomy, their safety—and second, because they want to regain the possessions they lost. This no doubt can be said to be true for some people, yet, at least some migrants seem to have migrated for other reasons and seem to want something entirely different from such possessions.</p>
+                        <p>Migration itself, including the often maligned “caravans” of migrants moving from Central America to the US, can be understood as a kind of improvised community, an effort to configure new social relations in the face of threats to or the veritable, the destruction of prior social relations.</p>
+                        <p>Learning how contemporary migrants come to the US in the interest of and with the desire to protect, restore, or forge new social relations that have been stressed or even destroyed by the relentless logics of dispossession, and then are required to narrate those interests and desires as lost individual possessions, can teach us how to approach dispossession for traces of ante-possession. From seventeenth-century villages like Tahmek to twenty-first-century detention centers in El Paso, varied, vigorous challenges to accumulation by dispossession thrive, refusing possession itself in the name of lives otherwise lived.</p>
                     </div>
                     <div class="media-placeholder">
                         <span>[assets/images/fig-3-2-Juan-Patricio-Archive.png]</span>
                         Figure 3.2: Key page from the Juan Patricio Archive.
                     </div>
                     <div class="media-placeholder">
-                        <img src="https://lh3.googleusercontent.com/d/1EerVQNCx4_XL7-XvtIoh6Fy36lgzNglm" alt="Figure 3.3: Juxtapose contrasting 1710s Yucatán with Modern Day." height="200px" width="625px">
+                        <img src="https://lh3.googleusercontent.com/d/1EerVQNCx4_XL7-XvtIoh6Fy36lgzNglm" alt="Figure 3.3: Juxtapose contrasting 1710s Yucatán with Modern Day."
+                      height = 200px
+                      width = 625px
+                      >
                         Figure 3.3: Juxtapose contrasting 1710s Yucatán with Modern Day.
                     </div>
                     <div class="card" id="patricio-downloads">
@@ -491,17 +508,22 @@
     </div>
     <script>
         function showSection(sectionId) {
+            // Hide Landing Page
             document.getElementById('title-page').style.display = 'none';
+            // Show Repository
             document.getElementById('main-repository').style.display = 'block';
             
+            // Hide all nav groups and sections
             const navs = document.querySelectorAll('.nav-group');
             const sections = document.querySelectorAll('section');
             navs.forEach(n => n.style.display = 'none');
             sections.forEach(s => s.classList.remove('active'));
 
+            // Show selected nav group and section
             document.getElementById('nav-' + sectionId).style.display = 'block';
             document.getElementById('section-' + sectionId).classList.add('active');
             
+            // Scroll to top
             window.scrollTo(0,0);
         }
 
