@@ -341,12 +341,43 @@
                 <div class="back-btn" onclick="goHome()">← Return to Index</div>
                 
                 <div id="nav-theory" class="nav-group">
-                    <h2>Dossier: Theory</h2>
-                    <ul>
-                        <li><a href="#theory-overview">Recursive Theory</a></li>
-                        <li><a href="#theory-3d">Recursive Model (3D)</a></li>
-                    </ul>
-                </div>
+    <h2>Dossier: Theory</h2>
+
+    <ul>
+
+        <li>
+            <a href="#theory-overview">
+                Dispossession
+            </a>
+        </li>
+
+        <li>
+            <a href="#theory-question">
+                How Might We Then Understand Dispossession?
+            </a>
+        </li>
+
+        <li>
+            <a href="#theory-slave-trade">
+                Trans-Atlantic Slave Trade
+            </a>
+        </li>
+
+        <li>
+            <a href="#theory-cartography">
+                Cartography
+            </a>
+        </li>
+
+        <li>
+            <a href="#theory-implications">
+                Implications
+            </a>
+        </li>
+
+    </ul>
+
+</div>
 
                 <div id="nav-saffin" class="nav-group">
                     <h2>Dossier: Adam</h2>
@@ -390,38 +421,43 @@
     ">
         | Ya esto no se puede sufrir.
     </p>
+<p>
+    The <strong>foundationalist presupposition</strong> of theories of
+    <strong>dispossession</strong> operates simultaneously on two levels: on
+    the level of <strong>subjectivity</strong>, or a subject’s relationship to
+    themself, and on the level of a subject’s
+    <strong>relationship to land</strong>. In the first instance, subjects are
+    presumed to own themselves, their bodies, or their labor before
+    <strong>dispossession</strong>, and thus to seek the return of those stolen
+    elements of their selves.
+</p>
 
-    <p>
-        The foundationalist presupposition of theories of dispossession operates
-        simultaneously on two levels: on the level of subjectivity, or a
-        subject’s relationship to themself, and on the level of a subject’s
-        relationship to land. In the first instance, subjects are presumed to
-        own themselves, their bodies, or their labor before dispossession, and
-        thus to seek the return of those stolen elements of their selves.
-    </p>
+<p>
+    In the second instance, land is presumably possessed by individuals or by
+    collectivities, either by right or custom, as
+    <strong>property</strong> or as <strong>commons</strong>, such that
+    <strong>anti-dispossessive politics</strong> ought to seek the return of
+    that land to the individuals or collectivities from which it was stolen.
+</p>
 
-    <p>
-        In the second instance, land is presumably possessed by individuals or
-        by collectivities, either by right or custom, as property or as commons,
-        such that anti-dispossessive politics ought to seek the return of that
-        land to the individuals or collectivities from which it was stolen.
-    </p>
+<p>
+    However, these presuppositions often do not specify in what sense subjects
+    can be said to have previously owned themselves or their land, and thus
+    fail to consider the political implications of imputing
+    <strong>prior possession</strong>. As Marx put it in his discussion of
+    Proudhon,
+    <em>"since 'theft' as a forcible violation of
+    <strong>property</strong> presupposes the existence of property."</em>
+</p>
 
-    <p>
-        However, these presuppositions often do not specify in what sense
-        subjects can be said to have previously owned themselves or their land,
-        and thus fail to consider the political implications of imputing prior
-        possession. As Marx put it in his discussion of Proudhon,
-        <em>"since 'theft' as a forcible violation of property presupposes the
-        existence of property."</em>
-    </p>
-
-    <p>
-        The "theft" framework therefore presumes prior possession. It obscures
-        the ante-possessive social relations that preceded and opposed
-        dispossession, restricting redress to juridical disputes over who should
-        be recognized as a proper possessor.
-    </p>
+<p>
+    The <strong>"theft" framework</strong> therefore presumes
+    <strong>prior possession</strong>. It obscures the
+    <strong>ante-possessive social relations</strong> that preceded and opposed
+    dispossession, restricting redress to
+    <strong>juridical disputes</strong> over who should be recognized as a
+    <strong>proper possessor</strong>.
+</p>
 
 </div>
                     <div class="card" id="theory-question">
