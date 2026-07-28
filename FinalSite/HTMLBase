@@ -1491,24 +1491,94 @@ By shifting our perspective to view these historical records through an ante-pos
     </div>
     <script>
         function showSection(sectionId) {
-            document.getElementById('title-page').style.display = 'none';
-            document.getElementById('main-repository').style.display = 'block';
-            
-            const navs = document.querySelectorAll('.nav-group');
-            const sections = document.querySelectorAll('section');
-            navs.forEach(n => n.style.display = 'none');
-            sections.forEach(s => s.classList.remove('active'));
+    document.getElementById('title-page').style.display = 'none';
+    document.getElementById('main-repository').style.display = 'block';
 
-            document.getElementById('nav-' + sectionId).style.display = 'block';
-            document.getElementById('section-' + sectionId).classList.add('active');
-            
-            window.scrollTo(0,0);
+    const navs = document.querySelectorAll('.nav-group');
+    const sections = document.querySelectorAll('section');
+
+    navs.forEach(n => n.style.display = 'none');
+    sections.forEach(s => s.classList.remove('active'));
+
+    const selectedNav = document.getElementById('nav-' + sectionId);
+    const selectedSection = document.getElementById('section-' + sectionId);
+
+    if (selectedNav) {
+        selectedNav.style.display = 'block';
+    }
+
+    if (selectedSection) {
+        selectedSection.classList.add('active');
+    }
+
+    window.scrollTo(0, 0);
+
+    setTimeout(() => {
+        if (!selectedSection) return;
+
+        const iframe = selectedSection.querySelector(
+            '.storymap-container iframe'
+        );
+
+        if (iframe) {
+            const source = iframe.src;
+            iframe.src = '';
+            iframe.src = source;
         }
+
+        selectedSection
+            .querySelectorAll('[data-comparison-slider]')
+            .forEach(slider => {
+                const range = slider.querySelector('.comparison-range');
+                const leftLayer = slider.querySelector(
+                    '.comparison-left-layer'
+                );
+                const divider = slider.querySelector(
+                    '.comparison-divider'
+                );
+                const leftImage = slider.querySelector(
+                    '.comparison-image-left'
+                );
+
+                if (!range || !leftLayer || !divider || !leftImage) return;
+
+                const value = Number(range.value);
+
+                leftLayer.style.width = value + '%';
+                divider.style.left = value + '%';
+                leftImage.style.width = slider.clientWidth + 'px';
+            });
+    }, 150);
+}
 
         function goHome() {
             document.getElementById('title-page').style.display = 'flex';
             document.getElementById('main-repository').style.display = 'none';
         }
+
+document
+    .querySelectorAll('[data-comparison-slider]')
+    .forEach(slider => {
+        const range = slider.querySelector('.comparison-range');
+        const leftLayer = slider.querySelector('.comparison-left-layer');
+        const divider = slider.querySelector('.comparison-divider');
+        const leftImage = slider.querySelector('.comparison-image-left');
+
+        if (!range || !leftLayer || !divider || !leftImage) return;
+
+        function updateComparison() {
+            const value = Number(range.value);
+
+            leftLayer.style.width = value + '%';
+            divider.style.left = value + '%';
+            leftImage.style.width = slider.clientWidth + 'px';
+        }
+
+        range.addEventListener('input', updateComparison);
+        window.addEventListener('resize', updateComparison);
+
+        updateComparison();
+    });
     </script>
 </body>
 </html>
