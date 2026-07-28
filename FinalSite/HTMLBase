@@ -303,6 +303,215 @@
             nav { width: 100%; height: auto; position: relative; }
             main { margin-left: 0; width: 100%; padding: 2rem 1rem; }
         }
+
+/* --- JUAN PATRICIO SECTION --- */
+
+.media-placeholder.storymap-container,
+.media-placeholder.comparison-container {
+    margin: 2.5rem 0;
+    padding: 1rem;
+    background: #fbf8f0;
+    border: 1px solid #d0c4af;
+    display: block;
+    height: auto;
+}
+
+.media-placeholder.storymap-container iframe {
+    width: 100%;
+    height: 900px;
+    border: none;
+    border-radius: 4px;
+}
+
+.figure-caption {
+    margin-top: 0.75rem;
+    text-align: center;
+    font-size: 0.95rem;
+    font-style: italic;
+    color: #6b5d4d;
+}
+
+/* Historical and modern map comparison slider */
+
+.comparison-slider {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    aspect-ratio: 1370 / 1088;
+    background: #ede7d9;
+    user-select: none;
+    touch-action: pan-y;
+}
+
+.comparison-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.comparison-left-layer {
+    position: absolute;
+    inset: 0;
+    width: 50%;
+    overflow: hidden;
+    z-index: 2;
+}
+
+.comparison-image-left {
+    width: 100vw;
+    max-width: none;
+}
+
+.comparison-divider {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 3px;
+    background: #ffffff;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.35);
+    transform: translateX(-50%);
+    z-index: 3;
+    pointer-events: none;
+}
+
+.comparison-handle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(42, 32, 26, 0.92);
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: inherit;
+    font-size: 1.25rem;
+    line-height: 1;
+}
+
+.comparison-range {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    cursor: ew-resize;
+    z-index: 4;
+}
+
+.comparison-label {
+    position: absolute;
+    top: 1rem;
+    z-index: 5;
+    padding: 0.35rem 0.6rem;
+    background: rgba(42, 32, 26, 0.78);
+    color: #ffffff;
+    border-radius: 2px;
+    pointer-events: none;
+}
+
+.comparison-label-left {
+    left: 1rem;
+}
+
+.comparison-label-right {
+    right: 1rem;
+}
+
+/* Quotes and definition boxes */
+
+.patricio-aside {
+    margin: 2rem 0;
+    padding: 1rem 1.5rem;
+    border-left: 4px solid var(--seal-wax);
+    background: #f5f1e7;
+    font-style: italic;
+}
+
+.patricio-aside p {
+    margin-bottom: 0;
+    text-align: left;
+}
+
+.patricio-transition {
+    margin: 2rem 0;
+    border: none;
+    border-top: 1px solid #cdbfa8;
+}
+
+.patricio-emphasis {
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.definition-callout {
+    margin: 1.5rem 0 2rem;
+    padding: 1rem 1.25rem;
+    border-left: 4px solid var(--seal-wax);
+    background: #f5f1e7;
+    text-align: left;
+}
+
+.definition-callout strong {
+    color: var(--seal-wax);
+    letter-spacing: 0.02em;
+}
+
+.definition-callout p {
+    margin: 0;
+    text-align: left;
+}
+
+.patricio-quote-attribution {
+    margin: -1.35rem 0 2rem;
+    color: #6b5d4d;
+    font-size: 0.9rem;
+    font-style: italic;
+    text-align: right;
+}
+
+/* Works Cited in the sidebar */
+
+.sidebar-works-cited {
+    margin-top: 2.25rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(235, 220, 185, 0.55);
+    color: #dfd5c6;
+}
+
+.sidebar-works-cited h2 {
+    margin: 0 0 1.25rem;
+    padding-bottom: 0;
+    border-bottom: none;
+    color: var(--gold-leaf);
+    font-size: 1rem;
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+.sidebar-works-cited p {
+    margin: 0 0 1.4rem;
+    color: #dfd5c6;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    text-align: left;
+}
+
+.sidebar-works-cited em {
+    color: #f0e7d8;
+}
+
     </style>
 </head>
 <body>
