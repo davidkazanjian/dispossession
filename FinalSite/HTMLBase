@@ -390,16 +390,40 @@
                     </ul>
                 </div>
 
-                <div id="nav-patricio" class="nav-group">
-                    <h2>Dossier: Juan Patricio</h2>
-                    <ul>
-                        <li><a href="#patricio-overview">Overview</a></li>
-                        <li><a href="#patricio-context">Middle Passage</a></li>
-                        <li><a href="#patricio-details">Implications</a></li>
-                        <li><a href="#patricio-downloads">Archive Download</a></li>
-                    </ul>
-                </div>
-            </nav>
+                <div class="nav-group" id="nav-patricio">
+    <h2>Dossier: Juan Patricio</h2>
+    <ul>
+        <li><a href="#patricio-overview">Overview</a></li>
+        <li><a href="#patricio-slavery">Slavery in the Yucatán</a></li>
+        <li><a href="#patricio-language">Language in the Yucatán</a></li>
+        <li><a href="#storymap-container">Juan Patricio Story Map</a></li>
+        <li><a href="#patricio-details">Implications</a></li>
+        <li><a href="#patricio-downloads">Archive Download</a></li>
+    </ul>
+</div>
+
+<div class="sidebar-works-cited">
+    <h2>Works Cited:</h2>
+
+    <p>
+        Kazanjian, David.
+        “Ante-Possession: A History of Dispossession’s Present.”
+        <em>American Literary History</em>
+        3 (2022): 863–892.
+    </p>
+
+    <p>
+        Restall, Matthew.
+        <em>The Black Middle: Africans, Mayas, and Spaniards in Colonial Yucatán.</em>
+        Stanford: Stanford University Press, 2009, 1–33.
+    </p>
+
+    <p>
+        Hanks, William F.
+        <em>Converting Words: Maya in the Age of the Cross.</em>
+        Berkeley: University of California Press, 2010, xiii–xx and 1–22.
+    </p>
+</div>
 
             <main>
                 <section id="section-theory">
