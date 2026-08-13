@@ -1,2 +1,2 @@
 Dispossession
-CURfF project on cases of Adam and Juan Patricio
+CURF project on cases of Adam and Juan Patricio
