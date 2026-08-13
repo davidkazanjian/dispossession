@@ -13,7 +13,7 @@
     --yucatan: #3e547f;
     --gold: #d8c7a6;
     --font-serif: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
-    --font-ui: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --font-ui: "Baskerville", "Baskerville Old Face", "Times New Roman", Times, serif;
     --reading: 760px;
     --media: 1080px;
     --rail: 286px;
@@ -29,84 +29,427 @@ img, iframe { max-width: 100%; }
 /* =========================================================
    LANDING / PROJECT INDEX
    ========================================================= */
-.landing-page { background: var(--archive-dark-2); color: #efe8dc; }
+.landing-page {
+    background: var(--archive-dark-2);
+    color: #efe8dc;
+}
+
 #title-page {
     min-height: 100svh;
+    overflow: hidden;
+    padding: clamp(2.3rem, 4.4vw, 4.5rem);
+    background: var(--archive-dark-2);
+}
+
+.landing-shell {
+    width: min(1180px, 100%);
+    margin: 0 auto;
+}
+
+/* The manuscript belongs to the hero only. Its lower edge fades completely
+   before the project index begins, so archival atmosphere never competes
+   with navigation. */
+.landing-hero {
+    position: relative;
+    isolation: isolate;
+    min-height: clamp(430px, 55svh, 575px);
     display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: clamp(2rem, 6vw, 5.5rem);
+    align-items: flex-end;
+    overflow: hidden;
+    padding: clamp(2.5rem, 5vw, 4.4rem) 0 clamp(3.3rem, 5vw, 4.8rem);
+}
+
+.landing-hero::before {
+    content: "";
+    position: absolute;
+    z-index: -2;
+    top: -7%;
+    right: -3%;
+    width: min(76vw, 1040px);
+    height: 112%;
     background:
-        linear-gradient(110deg, rgba(255,255,255,.025), transparent 34%),
-        repeating-linear-gradient(90deg, rgba(255,255,255,.011) 0 1px, transparent 1px 92px),
-        var(--archive-dark-2);
-    box-shadow: inset 0 0 130px rgba(0,0,0,.34);
+        url("https://lh3.googleusercontent.com/d/1pO8UT02jO4LTcx6GQzlN8tVm3vnNbscs")
+        center 23% / cover no-repeat;
+    opacity: .34;
+    filter: sepia(.15) saturate(.62) contrast(.91);
 }
-.book-cover { width: min(1160px, 100%); }
-.title-lockup { max-width: 850px; margin-bottom: clamp(3.2rem, 7vw, 6.4rem); }
-.book-cover h1 {
+
+.landing-hero::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background:
+        linear-gradient(90deg,
+            var(--archive-dark-2) 0%,
+            rgba(23,19,15,.985) 19%,
+            rgba(23,19,15,.82) 43%,
+            rgba(23,19,15,.36) 74%,
+            rgba(23,19,15,.11) 100%),
+        linear-gradient(180deg,
+            rgba(23,19,15,.02) 0%,
+            rgba(23,19,15,.04) 46%,
+            rgba(23,19,15,.30) 67%,
+            rgba(23,19,15,.72) 82%,
+            rgba(23,19,15,.95) 94%,
+            var(--archive-dark-2) 100%);
+    pointer-events: none;
+}
+
+.title-lockup {
+    position: relative;
+    z-index: 2;
+    width: min(800px, 100%);
+}
+
+.landing-kicker {
     margin-bottom: 1rem;
-    color: #f3ede2;
-    font-size: clamp(3.2rem, 7vw, 6.6rem);
-    font-weight: 500;
-    line-height: .94;
-    letter-spacing: -.045em;
-}
-.book-cover .subtitle {
-    max-width: 650px;
-    color: #bdb0a1;
-    font-size: clamp(1.05rem, 2vw, 1.35rem);
-    font-style: italic;
-    line-height: 1.5;
-}
-.archive-index { border-top: 1px solid rgba(255,255,255,.18); }
-.index-group { padding-top: 1.1rem; }
-.index-group + .index-group { margin-top: 2rem; }
-.index-group-label {
-    margin: 0 0 .55rem;
-    color: #8f8275;
+    color: #b7aa9d;
     font-family: var(--font-ui);
-    font-size: .67rem;
+    font-size: .78rem;
     font-weight: 700;
-    letter-spacing: .16em;
+    letter-spacing: .12em;
     text-transform: uppercase;
 }
-.case-index-grid { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid rgba(255,255,255,.16); }
+
+.landing-hero h1 {
+    max-width: 800px;
+    margin-bottom: 1.15rem;
+    color: #f3ede2;
+    font-size: clamp(3.1rem, 5.2vw, 5rem);
+    font-weight: 500;
+    line-height: .96;
+    letter-spacing: -.033em;
+}
+
+.landing-hero h1 span { display: block; }
+
+.landing-hero .subtitle {
+    max-width: 680px;
+    color: #cbbfb1;
+    font-size: clamp(1.02rem, 1.45vw, 1.18rem);
+    font-style: italic;
+    line-height: 1.55;
+}
+
+.hero-source {
+    position: absolute;
+    z-index: 2;
+    right: 0;
+    bottom: 1.05rem;
+    max-width: 305px;
+    color: rgba(218,207,193,.52);
+    font-family: var(--font-ui);
+    font-size: .62rem;
+    font-weight: 600;
+    letter-spacing: .055em;
+    line-height: 1.45;
+    text-align: right;
+    text-transform: uppercase;
+}
+
+/* A deliberate trim separates identity from navigation. */
+.archive-index {
+    position: relative;
+    z-index: 1;
+    padding: 2.2rem 0 1.4rem;
+}
+
+.archive-index::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 1px;
+    margin-bottom: clamp(2.2rem, 4vw, 3.2rem);
+    background:
+        linear-gradient(90deg,
+            var(--seal-wax) 0 82px,
+            rgba(216,199,166,.34) 82px 100%);
+}
+
+.index-intro {
+    margin-bottom: clamp(2.5rem, 4vw, 3.4rem);
+}
+
+.index-kicker {
+    margin-bottom: .4rem;
+    color: #a99b8d;
+    font-family: var(--font-ui);
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .11em;
+    text-transform: uppercase;
+}
+
+.index-intro h2 {
+    color: #ded4c8;
+    font-size: clamp(1.55rem, 2.1vw, 2rem);
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+.index-group + .index-group {
+    margin-top: clamp(3.8rem, 6vw, 5.3rem);
+}
+
+.index-group-heading {
+    display: flex;
+    align-items: baseline;
+    gap: 1.15rem;
+    margin-bottom: 1.25rem;
+    padding-left: .9rem;
+    border-left: 2px solid var(--seal-wax);
+}
+
+.index-group-label {
+    color: #e0d6ca;
+    font-family: var(--font-ui);
+    font-size: .89rem;
+    font-weight: 700;
+    letter-spacing: .105em;
+    text-transform: uppercase;
+}
+
+.index-group-note {
+    color: #a09386;
+    font-family: var(--font-ui);
+    font-size: .94rem;
+    font-style: italic;
+    line-height: 1.45;
+}
+
 .dossier-entry {
     position: relative;
-    display: grid;
-    grid-template-columns: 58px minmax(0,1fr) minmax(130px,.55fr) 28px;
-    gap: .85rem;
-    align-items: center;
-    min-height: 112px;
-    padding: 1.55rem 1.15rem 1.55rem 1.35rem;
-    border-bottom: 1px solid rgba(255,255,255,.16);
     color: inherit;
     text-decoration: none;
-    transition: background-color .23s ease, padding-left .23s ease;
+    outline: none;
+    background: rgba(255,255,255,.014);
+    border: 1px solid rgba(236,226,212,.15);
+    transition: border-color .22s ease, background-color .22s ease, transform .22s ease;
 }
-.case-index-grid .dossier-entry:first-child { border-right: 1px solid rgba(255,255,255,.16); }
-.dossier-entry-framework { border-top: 1px solid rgba(255,255,255,.16); }
+
 .dossier-entry::before {
     content: "";
     position: absolute;
-    left: 0;
-    top: 18%;
-    bottom: 18%;
+    z-index: 3;
+    left: -1px;
+    top: 12%;
+    bottom: 12%;
     width: 3px;
     background: var(--seal-wax);
     transform: scaleY(0);
     transform-origin: center;
     transition: transform .2s ease;
 }
-.dossier-entry:hover, .dossier-entry:focus-visible { padding-left: 1.7rem; background: rgba(255,255,255,.045); outline: none; }
-.dossier-entry:hover::before, .dossier-entry:focus-visible::before { transform: scaleY(1); }
-.entry-number { color: #8e8173; font-family: var(--font-ui); font-size: .72rem; font-weight: 650; letter-spacing: .14em; }
-.entry-title { color: #efe8dc; font-size: clamp(1.55rem, 2.7vw, 2.3rem); line-height: 1.06; }
-.entry-meta { color: #a99c8f; font-family: var(--font-ui); font-size: .67rem; font-weight: 650; letter-spacing: .12em; line-height: 1.5; text-transform: uppercase; }
-.entry-arrow { color: #9f9182; font-family: var(--font-ui); font-size: 1.25rem; text-align: right; transition: color .2s ease, transform .2s ease; }
-.dossier-entry:hover .entry-arrow, .dossier-entry:focus-visible .entry-arrow { color: #fff; transform: translateX(5px); }
-.index-instruction { margin-top: 1.5rem; color: #86796d; font-family: var(--font-ui); font-size: .7rem; letter-spacing: .04em; }
+
+.dossier-entry:hover,
+.dossier-entry:focus-visible {
+    background: rgba(255,255,255,.038);
+    border-color: rgba(236,226,212,.30);
+    transform: translateY(-2px);
+}
+
+.dossier-entry:hover::before,
+.dossier-entry:focus-visible::before {
+    transform: scaleY(1);
+}
+
+.dossier-entry-framework {
+    display: grid;
+    grid-template-columns: 64px minmax(0,1fr) minmax(190px,.42fr) 30px;
+    gap: 1.1rem;
+    align-items: center;
+    min-height: 132px;
+    padding: 1.5rem 1.25rem 1.5rem 1.35rem;
+}
+
+.entry-number {
+    align-self: start;
+    padding-top: .13rem;
+    color: #c3b3a3;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 1.62rem;
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1;
+    letter-spacing: .025em;
+}
+
+.entry-copy {
+    display: flex;
+    flex-direction: column;
+    gap: .48rem;
+    min-width: 0;
+}
+
+.entry-title {
+    color: #f1eae0;
+    font-size: clamp(1.78rem, 2.7vw, 2.42rem);
+    font-weight: 500;
+    line-height: 1.06;
+}
+
+.entry-location,
+.entry-meta {
+    color: #b5a799;
+    font-family: var(--font-ui);
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .075em;
+    line-height: 1.45;
+    text-transform: uppercase;
+}
+
+.entry-description {
+    max-width: 665px;
+    color: #c0b4a7;
+    font-family: var(--font-ui);
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.entry-meta {
+    justify-self: end;
+    max-width: 210px;
+    text-align: right;
+}
+
+.entry-arrow {
+    align-self: center;
+    color: #aa9c8e;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 1.35rem;
+    text-align: right;
+    transition: color .2s ease, transform .2s ease;
+}
+
+.dossier-entry:hover .entry-arrow,
+.dossier-entry:focus-visible .entry-arrow {
+    color: #fff;
+    transform: translateX(5px);
+}
+
+.case-index-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: clamp(1.3rem, 2.4vw, 1.9rem);
+}
+
+.dossier-entry-case {
+    display: flex;
+    min-height: 304px;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.case-banner {
+    position: relative;
+    display: block;
+    height: 108px;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(236,226,212,.13);
+    background-color: #2a241e;
+}
+
+.case-banner img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: 50% 50%;
+    filter: sepia(.20) saturate(.62) contrast(.94) brightness(.73);
+    opacity: .80;
+    transition: transform .45s ease, opacity .3s ease;
+}
+
+.case-banner::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(90deg, rgba(23,19,15,.16), rgba(23,19,15,.02) 60%),
+        linear-gradient(180deg, rgba(23,19,15,.02), rgba(23,19,15,.38));
+}
+
+.case-banner-label {
+    position: absolute;
+    z-index: 2;
+    right: .9rem;
+    bottom: .68rem;
+    color: rgba(247,239,228,.82);
+    font-family: var(--font-ui);
+    font-size: .62rem;
+    font-weight: 700;
+    letter-spacing: .065em;
+    text-transform: uppercase;
+}
+
+.dossier-entry-case:hover .case-banner img,
+.dossier-entry-case:focus-visible .case-banner img {
+    transform: scale(1.022);
+    opacity: .90;
+}
+
+.case-card-body {
+    display: grid;
+    grid-template-columns: 52px minmax(0,1fr) 28px;
+    gap: .9rem;
+    align-items: start;
+    flex: 1;
+    padding: 1.42rem 1.1rem 1.55rem 1.18rem;
+}
+
+.dossier-entry-case .entry-copy { gap: .54rem; }
+.dossier-entry-case .entry-number { padding-top: .07rem; }
+.dossier-entry-case .entry-arrow { align-self: start; margin-top: .12rem; }
+.dossier-entry-case .entry-title { font-size: clamp(1.75rem, 2.35vw, 2.2rem); }
+.dossier-entry-case .entry-description { max-width: 480px; }
+
+@media (max-width: 900px) {
+    #title-page { padding: 1.8rem clamp(1.2rem, 5vw, 2.2rem) 3rem; }
+
+    .landing-hero {
+        min-height: 455px;
+        padding-bottom: 3.5rem;
+    }
+
+    .landing-hero::before {
+        width: 96vw;
+        right: -20vw;
+        opacity: .27;
+    }
+
+    .landing-hero::after {
+        background:
+            linear-gradient(90deg,
+                var(--archive-dark-2) 0%,
+                rgba(23,19,15,.94) 42%,
+                rgba(23,19,15,.28) 100%),
+            linear-gradient(180deg,
+                rgba(23,19,15,.03) 0%,
+                rgba(23,19,15,.15) 50%,
+                rgba(23,19,15,.65) 77%,
+                var(--archive-dark-2) 100%);
+    }
+
+    .hero-source { display: none; }
+    .dossier-entry-framework { grid-template-columns: 48px minmax(0,1fr) 26px; }
+    .dossier-entry-framework .entry-meta { display: none; }
+    .case-index-grid { grid-template-columns: 1fr; gap: 1.15rem; }
+    .dossier-entry-case { min-height: 0; }
+}
+
+@media (max-width: 600px) {
+    .landing-hero h1 { font-size: clamp(2.75rem, 12vw, 3.8rem); }
+    .index-group-heading { display: block; }
+    .index-group-note { margin-top: .32rem; }
+    .dossier-entry-framework { grid-template-columns: 42px minmax(0,1fr) 24px; }
+    .case-card-body { grid-template-columns: 42px minmax(0,1fr) 24px; padding-left: .82rem; padding-right: .72rem; }
+    .entry-number { font-size: 1.38rem; }
+    .entry-title { font-size: 1.68rem; }
+    .entry-description { font-size: .96rem; }
+    .case-banner { height: 92px; }
+}
 
 /* =========================================================
    MULTI-PAGE ARCHIVE SHELL
@@ -371,20 +714,6 @@ footer { display: none; }
 }
 
 @media (max-width: 720px) {
-    #title-page { align-items: flex-start; padding: 3rem 1.2rem; }
-    .title-lockup { margin-bottom: 3.2rem; }
-    .book-cover h1 { font-size: clamp(3rem,15vw,4.6rem); }
-    .case-index-grid { grid-template-columns: 1fr; }
-    .case-index-grid .dossier-entry:first-child { border-right: 0; }
-    .dossier-entry {
-        grid-template-columns: 48px 1fr 26px;
-        grid-template-areas: "number title arrow" ". meta arrow";
-        gap: .35rem .7rem;
-        min-height: 104px;
-        padding: 1.35rem .7rem 1.35rem 1rem;
-    }
-    .dossier-entry:hover, .dossier-entry:focus-visible { padding-left: 1.25rem; }
-    .entry-number { grid-area: number; } .entry-title { grid-area: title; } .entry-meta { grid-area: meta; } .entry-arrow { grid-area: arrow; }
     .storymap-container iframe { height: 680px; }
     .comparison-label { top: .5rem; font-size: .6rem; }
     .comparison-label-left { left: .5rem; } .comparison-label-right { right: .5rem; }
@@ -394,4 +723,5 @@ footer { display: none; }
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+}
 }
