@@ -1,0 +1,11 @@
+V24 case-media refinement
+
+- Removed the large page-end raw source-file blocks from Adam and Juan Patricio.
+- Primary-source citations remain centralized in Sources & Bibliography.
+- Juan Patricio's project transcription remains directly accessible from its bibliography entry.
+- StoryMaps now remain inside the prose column, so the sticky vocabulary never disappears behind them.
+- StoryMaps are taller (up to ~790px) to reduce internal scrolling.
+- Adam StoryMap/media uses the muted green case frame; Juan Patricio uses muted blue-gray.
+- JP comparison maps remain local files and therefore must be uploaded to the GitHub repository with the HTML/CSS.
+- Replaced Gabriela Chavez Hernandez's headshot with the newly supplied portrait.
+- Removed the no-longer-linked Adam raw-download assets from the publication package.
